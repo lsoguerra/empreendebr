@@ -7,198 +7,185 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --verde: #00c896;
-    --verde-escuro: #00956f;
-    --azul: #0a1628;
-    --azul-medio: #112040;
-    --azul-claro: #1a3060;
-    --cinza: #8899bb;
-    --cinza-claro: #c8d4ee;
-    --branco: #f0f4ff;
-    --amarelo: #ffd166;
-    --vermelho: #ff6b6b;
-    --card-bg: rgba(255,255,255,0.04);
-    --card-border: rgba(255,255,255,0.08);
+    --verde:#00c896; --verde-escuro:#00956f; --azul:#0a1628; --azul-medio:#112040;
+    --azul-claro:#1a3060; --cinza:#8899bb; --cinza-claro:#c8d4ee; --branco:#f0f4ff;
+    --amarelo:#ffd166; --vermelho:#ff6b6b; --azul-acc:#7eb8ff;
+    --card-bg:rgba(255,255,255,0.04); --card-border:rgba(255,255,255,0.08);
   }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    background: var(--azul);
-    color: var(--branco);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--azul);color:var(--branco);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,200,150,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,150,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+  body::after{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(0,200,150,0.12) 0%,transparent 70%);pointer-events:none;z-index:0;}
+  .container{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+  /* HEADER */
+  header{padding:26px 0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--card-border);}
+  .logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+  .logo-icon{width:34px;height:34px;background:var(--verde);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;}
+  .logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;letter-spacing:0.5px;}
+  .logo-text span{color:var(--verde);}
+  .logo-sub{font-size:11px;color:var(--cinza);margin-top:1px;}
+  nav{display:flex;gap:4px;}
+  .nav-btn{background:none;border:none;color:var(--cinza);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:8px 16px;border-radius:8px;cursor:pointer;transition:all 0.2s;}
+  .nav-btn:hover{color:var(--branco);background:rgba(255,255,255,0.05);}
+  .nav-btn.active{color:var(--verde);background:rgba(0,200,150,0.1);}
+
+  /* PAGES */
+  .page{display:none;animation:fadeIn 0.3s ease;}
+  .page.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ── HOME ── */
+  .home-hero{text-align:center;padding:72px 0 56px;}
+  .home-hero .eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--verde);margin-bottom:18px;}
+  .home-hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(34px,5.5vw,60px);line-height: 1.2;letter-spacing: 2px;margin-bottom:18px;}
+  .home-hero h1 em{color:var(--verde);font-style:normal;}
+  .home-hero .tagline{font-size:17px;font-weight:300;color:var(--cinza);font-style:italic;margin-bottom:32px;}
+  .cta-row{display:flex;gap:12px;justify-content:center;align-items:center;}
+  .btn-primary{background:var(--verde);color:var(--azul);border:none;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;padding:14px 36px;cursor:pointer;transition:all 0.2s;}
+  .btn-primary:hover{background:var(--verde-escuro);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,200,150,0.3);}
+  .btn-secondary{background:none;color:var(--cinza-claro);border:1px solid var(--card-border);border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:15px;padding:14px 28px;cursor:pointer;transition:all 0.2s;}
+  .btn-secondary:hover{border-color:var(--verde);color:var(--verde);}
+
+  .missao-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin:56px 0;}
+  .missao-bloco{background:var(--azul-medio);border:1px solid var(--card-border);border-radius:18px;padding:28px 30px;}
+  .missao-bloco .bloco-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;color:var(--verde);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+  .missao-bloco h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-bottom:10px;line-height:1.3;}
+  .missao-bloco p{font-size:13px;line-height:1.72;color:var(--cinza);}
+  .missao-bloco p strong{color:var(--cinza-claro);font-weight:500;}
+  .missao-bloco.destaque{background:linear-gradient(135deg,rgba(0,200,150,0.1),rgba(0,200,150,0.03));border-color:rgba(0,200,150,0.2);}
+
+  .perguntas-section{margin:0 0 52px;}
+  .section-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--cinza);margin-bottom:16px;}
+  .perguntas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .pergunta-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:18px;transition:border-color 0.2s,transform 0.2s;}
+  .pergunta-card:hover{border-color:rgba(0,200,150,0.3);transform:translateY(-2px);}
+  .pergunta-card .p-icon{font-size:20px;margin-bottom:8px;}
+  .pergunta-card p{font-size:13px;line-height:1.55;color:var(--cinza-claro);font-style:italic;}
+
+  .aviso-dados{display:flex;gap:16px;align-items:flex-start;background:rgba(255,209,102,0.05);border:1px solid rgba(255,209,102,0.18);border-radius:14px;padding:22px 26px;margin:0 0 52px;}
+  .aviso-dados .av-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+  .aviso-dados h4{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--amarelo);margin-bottom:6px;}
+  .aviso-dados p{font-size:13px;line-height:1.65;color:var(--cinza-claro);}
+
+  .sobre-contato-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:0 0 52px;}
+  .sobre-card{background:var(--azul-medio);border:1px solid var(--card-border);border-radius:18px;padding:28px 30px;}
+  .sobre-card h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-bottom:14px;}
+  .sobre-card p{font-size:13px;line-height:1.72;color:var(--cinza);margin-bottom:10px;}
+  .sobre-card p:last-child{margin-bottom:0;}
+  .sobre-card p strong{color:var(--cinza-claro);font-weight:500;}
+  .contato-form{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+  .contato-form input,.contato-form textarea{background:var(--azul-claro);border:1px solid var(--card-border);border-radius:9px;color:var(--branco);font-family:'DM Sans',sans-serif;font-size:13px;padding:11px 14px;outline:none;transition:border-color 0.2s;resize:none;}
+  .contato-form input::placeholder,.contato-form textarea::placeholder{color:var(--cinza);}
+  .contato-form input:focus,.contato-form textarea:focus{border-color:var(--verde);}
+  .contato-form textarea{height:80px;}
+  .btn-contato{background:var(--verde);color:var(--azul);border:none;border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;padding:11px;cursor:pointer;transition:all 0.2s;}
+  .btn-contato:hover{background:var(--verde-escuro);}
+  .contato-email-link{font-size:11px;color:var(--cinza);text-align:center;margin-top:2px;}
+  .contato-email-link a{color:var(--verde);text-decoration:none;}
+
+  .instagram-strip{display:flex;align-items:center;justify-content:center;padding:8px 0 48px;}
+  .instagram-strip a{display:flex;align-items:center;gap:8px;color:var(--cinza);font-size:12px;font-weight:500;text-decoration:none;transition:color 0.2s;padding:8px 18px;border:1px solid var(--card-border);border-radius:20px;}
+  .instagram-strip a:hover{color:var(--branco);border-color:rgba(255,255,255,0.2);}
+
+  /* ── DASHBOARD ── */
+  .dash-hero{text-align:center;padding:44px 0 28px;}
+  .dash-hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(24px,4vw,40px);line-height:1.1;letter-spacing:0.3px;margin-bottom:8px;}
+  .dash-hero h1 .hl{color:var(--verde);}
+  .dash-hero p{color:var(--cinza);font-size:14px;font-weight:300;max-width:480px;margin:0 auto;}
+
+  .filters-card{background:var(--azul-medio);border:1px solid var(--card-border);border-radius:18px;padding:22px 26px;margin-bottom:28px;}
+  .filters-title{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--verde);margin-bottom:16px;}
+  .filters-grid{display:grid;grid-template-columns:110px 1fr 1fr auto;gap:12px;align-items:end;}
+  .field-group{display:flex;flex-direction:column;gap:6px;}
+  .field-group label{font-size:10px;font-weight:600;color:var(--cinza);text-transform:uppercase;letter-spacing:1px;}
+  select{background:var(--azul-claro);border:1px solid var(--card-border);border-radius:9px;color:var(--branco);font-family:'DM Sans',sans-serif;font-size:13px;padding:11px 32px 11px 13px;outline:none;cursor:pointer;transition:border-color 0.2s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238899bb' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;}
+  select:hover,select:focus{border-color:var(--verde);}
+  select:disabled{opacity:0.4;cursor:not-allowed;}
+  select option{background:var(--azul-medio);}
+  .btn-buscar{background:var(--verde);color:var(--azul);border:none;border-radius:9px;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;padding:11px 24px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+  .btn-buscar:hover{background:var(--verde-escuro);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,200,150,0.3);}
+  .btn-buscar:disabled{opacity:0.5;cursor:not-allowed;transform:none;}
+
+  .empty-state{text-align:center;padding:64px 20px;}
+  .empty-icon{font-size:40px;margin-bottom:14px;opacity:0.3;}
+  .empty-state h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px;color:var(--cinza-claro);}
+  .empty-state p{font-size:13px;color:var(--cinza);max-width:400px;margin:0 auto;line-height:1.6;}
+  .hidden{display:none!important;}
+
+  .loading{display:none;text-align:center;padding:56px 20px;}
+  .spinner{width:34px;height:34px;border:3px solid rgba(0,200,150,0.2);border-top-color:var(--verde);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .loading p{color:var(--cinza);font-size:13px;}
+
+  .erro-state{display:none;text-align:center;padding:56px 20px;}
+  .erro-state .erro-icon{font-size:34px;margin-bottom:12px;}
+  .erro-state h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;color:var(--vermelho);}
+  .erro-state p{font-size:13px;color:var(--cinza);}
+
+  .result-label{display:flex;align-items:center;gap:10px;margin-bottom:18px;opacity:0;transform:translateY(8px);transition:all 0.4s ease;}
+  .result-label.visible{opacity:1;transform:translateY(0);}
+  .result-label .dot{width:7px;height:7px;border-radius:50%;background:var(--verde);box-shadow:0 0 10px var(--verde);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+  .result-label span{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;}
+  .result-label .muni{color:var(--verde);}
+
+  /* SEÇÕES DASHBOARD */
+  .dash-section{margin-bottom:10px;opacity:0;transform:translateY(12px);transition:all 0.5s ease;}
+  .dash-section.visible{opacity:1;transform:translateY(0);}
+  .dash-section-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--card-border);}
+  .sec-icon{font-size:17px;}
+  .dash-section-header h2{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;}
+  .sec-badge{font-size:10px;font-weight:600;color:var(--verde);background:rgba(0,200,150,0.1);padding:2px 8px;border-radius:5px;letter-spacing:0.5px;text-transform:uppercase;margin-left:auto;}
+
+  /* KPI */
+  .kpi-row{display:grid;gap:10px;margin-bottom:10px;}
+  .kpi-row-2{grid-template-columns:1fr 1fr;}
+  .kpi-row-3{grid-template-columns:1fr 1fr 1fr;}
+  .kpi-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:13px;padding:18px 16px 13px;transition:border-color 0.2s,transform 0.2s;position:relative;}
+  .kpi-card:hover{border-color:rgba(0,200,150,0.3);transform:translateY(-2px);}
+  .kpi-card.destaque{background:linear-gradient(135deg,rgba(0,200,150,0.11),rgba(0,200,150,0.03));border-color:rgba(0,200,150,0.2);}
+  .kpi-label{font-size:10px;font-weight:600;color:var(--cinza);text-transform:uppercase;letter-spacing:1.1px;margin-bottom:8px;padding-right:20px;}
+  .kpi-value{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-0.3px;line-height:1;margin-bottom:6px;}
+  .kpi-value.verde{color:var(--verde);}
+  .kpi-value.amarelo{color:var(--amarelo);}
+  .kpi-value.azul{color:var(--azul-acc);}
+  .kpi-delta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:500;padding:2px 6px;border-radius:5px;}
+  .kpi-delta.up{background:rgba(0,200,150,0.12);color:var(--verde);}
+  .kpi-delta.down{background:rgba(255,107,107,0.12);color:var(--vermelho);}
+  .kpi-delta.neutral{background:rgba(255,209,102,0.12);color:var(--amarelo);}
+
+  /* TOOLTIP */
+  .tip-btn{position:absolute;top:11px;right:11px;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:var(--cinza);font-size:10px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-family:'Syne',sans-serif;flex-shrink:0;}
+  .tip-btn:hover{background:rgba(0,200,150,0.14);border-color:var(--verde);color:var(--verde);}
+  .tip-btn.inline{position:relative;top:auto;right:auto;}
+  .tooltip-popup{display:none;position:absolute;bottom:calc(100% + 8px);right:0;background:#1a3060;border:1px solid rgba(0,200,150,0.28);border-radius:11px;padding:12px 14px;font-size:12px;line-height:1.6;color:var(--cinza-claro);width:220px;z-index:100;box-shadow:0 8px 28px rgba(0,0,0,0.4);}
+  .tooltip-popup::after{content:'';position:absolute;bottom:-5px;right:5px;width:9px;height:9px;background:#1a3060;border-right:1px solid rgba(0,200,150,0.28);border-bottom:1px solid rgba(0,200,150,0.28);transform:rotate(45deg);}
+  .tooltip-popup.show{display:block;animation:tipFade 0.15s ease;}
+  @keyframes tipFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+  /* CHARTS */
+  .chart-row{display:grid;gap:10px;margin-bottom:22px;}
+  .chart-row-2{grid-template-columns:1fr 1fr;}
+  .chart-row-3{grid-template-columns:1fr 1fr 1fr;}
+  .chart-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:13px;padding:18px;position:relative;}
+  .chart-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:3px;gap:8px;}
+  .chart-title{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;}
+  .chart-sub{font-size:11px;color:var(--cinza);margin-bottom:14px;}
+
+  footer{border-top:1px solid var(--card-border);padding:22px 0;margin-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  footer p{font-size:11px;color:var(--cinza);}
+  footer a{color:var(--verde);text-decoration:none;}
+
+  @media(max-width:900px){
+    .filters-grid{grid-template-columns:1fr 1fr;}
+    .filters-grid .btn-buscar{grid-column:1/-1;}
+    .missao-grid,.sobre-contato-grid,.perguntas-grid{grid-template-columns:1fr;}
+    .kpi-row-3,.chart-row-3{grid-template-columns:1fr 1fr;}
   }
-  body::before {
-    content:''; position:fixed; inset:0;
-    background-image:
-      linear-gradient(rgba(0,200,150,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,200,150,0.03) 1px, transparent 1px);
-    background-size:60px 60px; pointer-events:none; z-index:0;
-  }
-  body::after {
-    content:''; position:fixed; top:-200px; left:50%; transform:translateX(-50%);
-    width:800px; height:400px;
-    background:radial-gradient(ellipse, rgba(0,200,150,0.12) 0%, transparent 70%);
-    pointer-events:none; z-index:0;
-  }
-  .container { max-width:1200px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
-
-  header {
-    padding:28px 0 20px;
-    display:flex; align-items:center; justify-content:space-between;
-    border-bottom:1px solid var(--card-border);
-  }
-  .logo { display:flex; align-items:center; gap:10px; cursor:pointer; }
-  .logo-icon { width:34px; height:34px; background:var(--verde); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:17px; }
-  .logo-text { font-family:'Syne',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.5px; }
-  .logo-text span { color:var(--verde); }
-  .logo-sub { font-size:11px; color:var(--cinza); margin-top:1px; }
-  nav { display:flex; gap:4px; }
-  .nav-btn { background:none; border:none; color:var(--cinza); font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; padding:8px 18px; border-radius:8px; cursor:pointer; transition:all 0.2s; }
-  .nav-btn:hover { color:var(--branco); background:rgba(255,255,255,0.05); }
-  .nav-btn.active { color:var(--verde); background:rgba(0,200,150,0.1); }
-
-  .page { display:none; animation:fadeIn 0.3s ease; }
-  .page.active { display:block; }
-  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-
-  /* MISSÃO */
-  .missao-hero { text-align:center; padding:64px 0 48px; border-bottom:1px solid var(--card-border); margin-bottom:56px; }
-  .missao-hero .eyebrow { font-size:12px; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--verde); margin-bottom:20px; }
-  .missao-hero h1 { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(32px,5vw,54px); line-height:1.1; letter-spacing:-1px; margin-bottom:16px; }
-  .missao-hero h1 em { color:var(--verde); font-style:normal; }
-  .missao-hero .tagline { font-size:18px; font-weight:300; color:var(--cinza); font-style:italic; }
-  .missao-section { margin-bottom:48px; }
-  .missao-section-title { display:flex; align-items:center; gap:12px; font-family:'Syne',sans-serif; font-size:22px; font-weight:800; margin-bottom:24px; }
-  .missao-body { background:var(--azul-medio); border:1px solid var(--card-border); border-radius:20px; padding:36px 40px; }
-  .missao-body p { font-size:16px; line-height:1.75; color:var(--cinza-claro); margin-bottom:18px; }
-  .missao-body p:last-child { margin-bottom:0; }
-  .missao-body strong { color:var(--branco); font-weight:500; }
-  .missao-body .destaque { color:var(--verde); font-weight:600; }
-  .missao-body .callout { border-left:3px solid var(--verde); padding-left:20px; margin:24px 0; font-style:italic; color:var(--amarelo); font-size:17px; line-height:1.6; }
-  .missao-aviso { display:flex; gap:16px; align-items:flex-start; background:rgba(255,209,102,0.06); border:1px solid rgba(255,209,102,0.2); border-radius:14px; padding:20px 24px; margin-top:20px; }
-  .missao-aviso .aviso-icon { font-size:20px; flex-shrink:0; margin-top:2px; }
-  .missao-aviso p { font-size:14px; line-height:1.65; color:var(--cinza-claro); margin:0; }
-  .missao-aviso p strong { color:var(--amarelo); }
-  .missao-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px; }
-  .missao-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:16px; padding:24px; transition:border-color 0.2s, transform 0.2s; }
-  .missao-card:hover { border-color:rgba(0,200,150,0.3); transform:translateY(-2px); }
-  .missao-card .card-icon { font-size:28px; margin-bottom:14px; }
-  .missao-card h3 { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; margin-bottom:8px; }
-  .missao-card p { font-size:13px; line-height:1.6; color:var(--cinza); }
-
-  /* DASHBOARD */
-  .dash-hero { text-align:center; padding:48px 0 36px; }
-  .dash-hero h1 { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(28px,4vw,44px); line-height:1.1; letter-spacing:-1px; margin-bottom:12px; }
-  .dash-hero h1 .hl { color:var(--verde); }
-  .dash-hero p { color:var(--cinza); font-size:16px; font-weight:300; max-width:520px; margin:0 auto; }
-
-  .filters-card { background:var(--azul-medio); border:1px solid var(--card-border); border-radius:20px; padding:28px 32px; margin-bottom:36px; }
-  .filters-title { font-family:'Syne',sans-serif; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:var(--verde); margin-bottom:20px; }
-  .filters-grid { display:grid; grid-template-columns:1fr 1fr auto; gap:16px; align-items:end; }
-  .field-group { display:flex; flex-direction:column; gap:8px; }
-  .field-group label { font-size:11px; font-weight:500; color:var(--cinza); text-transform:uppercase; letter-spacing:1px; }
-  select { background:var(--azul-claro); border:1px solid var(--card-border); border-radius:10px; color:var(--branco); font-family:'DM Sans',sans-serif; font-size:15px; padding:13px 40px 13px 16px; outline:none; cursor:pointer; transition:border-color 0.2s; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238899bb' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; }
-  select:hover,select:focus { border-color:var(--verde); }
-  select option { background:var(--azul-medio); }
-  .btn-buscar { background:var(--verde); color:var(--azul); border:none; border-radius:10px; font-family:'Syne',sans-serif; font-weight:700; font-size:15px; padding:13px 32px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
-  .btn-buscar:hover { background:var(--verde-escuro); transform:translateY(-1px); box-shadow:0 8px 24px rgba(0,200,150,0.3); }
-  .btn-buscar:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
-
-  /* Loading spinner */
-  .loading {
-    display:none; text-align:center; padding:60px 20px;
-  }
-  .spinner {
-    width:40px; height:40px; border:3px solid rgba(0,200,150,0.2);
-    border-top-color:var(--verde); border-radius:50%;
-    animation:spin 0.8s linear infinite; margin:0 auto 16px;
-  }
-  @keyframes spin { to { transform:rotate(360deg); } }
-  .loading p { color:var(--cinza); font-size:14px; }
-
-  /* Erro */
-  .erro-state { display:none; text-align:center; padding:60px 20px; }
-  .erro-state .erro-icon { font-size:40px; margin-bottom:16px; }
-  .erro-state h3 { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:8px; color:var(--vermelho); }
-  .erro-state p { font-size:14px; color:var(--cinza); }
-
-  .result-label { display:flex; align-items:center; gap:12px; margin-bottom:24px; opacity:0; transform:translateY(8px); transition:all 0.4s ease; }
-  .result-label.visible { opacity:1; transform:translateY(0); }
-  .result-label .dot { width:8px;height:8px;border-radius:50%;background:var(--verde);box-shadow:0 0 12px var(--verde);animation:pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  .result-label span { font-family:'Syne',sans-serif; font-size:17px; font-weight:700; }
-  .result-label .muni { color:var(--verde); }
-
-  .empty-state { text-align:center; padding:80px 20px; }
-  .empty-icon { font-size:48px; margin-bottom:20px; opacity:0.4; }
-  .empty-state h3 { font-family:'Syne',sans-serif; font-size:20px; font-weight:700; margin-bottom:8px; color:var(--cinza-claro); }
-  .empty-state p { font-size:14px; color:var(--cinza); }
-  .hidden { display:none !important; }
-
-  .kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; opacity:0; transform:translateY(16px); transition:all 0.5s ease 0.1s; }
-  .kpi-grid.visible { opacity:1; transform:translateY(0); }
-  .kpi-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:16px; padding:22px 20px 16px; transition:border-color 0.2s, transform 0.2s; position:relative; }
-  .kpi-card:hover { border-color:rgba(0,200,150,0.3); transform:translateY(-2px); }
-  .kpi-card.destaque { background:linear-gradient(135deg, rgba(0,200,150,0.12), rgba(0,200,150,0.04)); border-color:rgba(0,200,150,0.25); }
-  .kpi-label { font-size:11px; font-weight:500; color:var(--cinza); text-transform:uppercase; letter-spacing:1.1px; margin-bottom:10px; padding-right:24px; }
-  .kpi-value { font-family:'Syne',sans-serif; font-size:29px; font-weight:800; letter-spacing:-0.8px; line-height:1; margin-bottom:8px; }
-  .kpi-value.verde { color:var(--verde); }
-  .kpi-value.amarelo { color:var(--amarelo); }
-  .kpi-delta { display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:500; padding:3px 8px; border-radius:6px; }
-  .kpi-delta.up { background:rgba(0,200,150,0.12); color:var(--verde); }
-  .kpi-delta.down { background:rgba(255,107,107,0.12); color:var(--vermelho); }
-  .kpi-delta.neutral { background:rgba(255,209,102,0.12); color:var(--amarelo); }
-
-  .tip-btn { position:absolute; top:14px; right:14px; width:18px; height:18px; border-radius:50%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:var(--cinza); font-size:11px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; font-family:'Syne',sans-serif; }
-  .tip-btn:hover { background:rgba(0,200,150,0.15); border-color:var(--verde); color:var(--verde); }
-  .tip-btn.inline { position:relative; top:auto; right:auto; flex-shrink:0; }
-  .tooltip-popup { display:none; position:absolute; bottom:calc(100% + 10px); right:0; background:#1a3060; border:1px solid rgba(0,200,150,0.3); border-radius:12px; padding:14px 16px; font-size:12px; line-height:1.6; color:var(--cinza-claro); width:230px; z-index:100; box-shadow:0 8px 32px rgba(0,0,0,0.4); }
-  .tooltip-popup::after { content:''; position:absolute; bottom:-6px; right:6px; width:10px; height:10px; background:#1a3060; border-right:1px solid rgba(0,200,150,0.3); border-bottom:1px solid rgba(0,200,150,0.3); transform:rotate(45deg); }
-  .tooltip-popup.show { display:block; animation:tipFade 0.15s ease; }
-  @keyframes tipFade { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-
-  .section-row { opacity:0; transform:translateY(16px); transition:all 0.5s ease 0.2s; margin-bottom:20px; }
-  .section-row.visible { opacity:1; transform:translateY(0); }
-  .section-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  .chart-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:16px; padding:24px; position:relative; }
-  .chart-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:4px; }
-  .chart-title { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; }
-  .chart-sub { font-size:12px; color:var(--cinza); margin-bottom:20px; }
-
-  .bar-chart { display:flex; flex-direction:column; gap:11px; }
-  .bar-row { display:flex; align-items:center; gap:10px; }
-  .bar-label { font-size:11px; color:var(--cinza-claro); width:105px; flex-shrink:0; text-align:right; }
-  .bar-track { flex:1; height:7px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden; }
-  .bar-fill { height:100%; border-radius:4px; background:var(--verde); width:0%; transition:width 1s cubic-bezier(0.16,1,0.3,1); }
-  .bar-fill.amarelo { background:var(--amarelo); }
-  .bar-num { font-size:11px; font-weight:500; color:var(--branco); width:30px; text-align:right; flex-shrink:0; }
-
-  .donut-wrap { display:flex; align-items:center; gap:24px; }
-  .donut-legend { display:flex; flex-direction:column; gap:10px; flex:1; }
-  .legend-item { display:flex; align-items:center; gap:10px; }
-  .legend-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
-  .legend-text { font-size:12px; color:var(--cinza-claro); flex:1; }
-  .legend-pct { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; }
-
-  .table-head { display:grid; grid-template-columns:2fr 1fr 1fr; gap:8px; padding:0 0 10px; border-bottom:1px solid var(--card-border); margin-bottom:8px; }
-  .table-head span { font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--cinza); }
-  .table-row-data { display:grid; grid-template-columns:2fr 1fr 1fr; gap:8px; padding:9px 0; border-bottom:1px solid rgba(255,255,255,0.04); align-items:center; }
-  .table-row-data .name { font-size:12px; font-weight:500; }
-  .table-row-data .val { font-size:12px; color:var(--cinza-claro); }
-
-  /* Dado indisponível */
-  .nd { color:var(--cinza); font-style:italic; font-size:12px; }
-
-  footer { border-top:1px solid var(--card-border); padding:24px 0; margin-top:20px; display:flex; align-items:center; justify-content:space-between; }
-  footer p { font-size:12px; color:var(--cinza); }
-  footer a { color:var(--verde); text-decoration:none; }
-
-  @media(max-width:768px){
-    .filters-grid{grid-template-columns:1fr;}
-    .kpi-grid{grid-template-columns:1fr 1fr;}
-    .section-row-2{grid-template-columns:1fr;}
-    .missao-cards{grid-template-columns:1fr;}
+  @media(max-width:600px){
+    .kpi-row-2,.kpi-row-3,.chart-row-2,.chart-row-3{grid-template-columns:1fr;}
+    .home-hero h1{letter-spacing:0.2px;}
   }
 </style>
 </head>
@@ -206,7 +193,7 @@
 <div class="container">
 
   <header>
-    <div class="logo" onclick="showPage('missao')">
+    <div class="logo" onclick="showPage('home')">
       <div class="logo-icon">📡</div>
       <div>
         <div class="logo-text">Empreende<span>BR</span></div>
@@ -214,98 +201,138 @@
       </div>
     </div>
     <nav>
-      <button class="nav-btn active" id="nav-missao" onclick="showPage('missao')">Sobre</button>
+      <button class="nav-btn active" id="nav-home" onclick="showPage('home')">Início</button>
       <button class="nav-btn" id="nav-dash" onclick="showPage('dash')">Dashboard</button>
     </nav>
   </header>
 
-  <!-- ══ MISSÃO ══ -->
-  <div class="page active" id="page-missao">
-    <div class="missao-hero">
-      <div class="eyebrow">⬡ Nossa missão</div>
-      <h1>Para quem é o <em>EmpreendeBR</em>?</h1>
+
+  <!-- ══ HOME ══ -->
+  <div class="page active" id="page-home">
+
+    <div class="home-hero">
+      <div class="eyebrow">⬡ Dados públicos · Decisões melhores</div>
+      <h1>Inteligência de mercado para<br><em>todo empreendedor brasileiro</em></h1>
       <div class="tagline">O poder dos grandes dados, agora nas mãos dos pequenos negócios.</div>
+      <div class="cta-row">
+        <button class="btn-primary" onclick="showPage('dash')">Explorar os dados →</button>
+        <button class="btn-secondary" onclick="document.getElementById('ancora-missao').scrollIntoView({behavior:'smooth'})">Saiba mais</button>
+      </div>
     </div>
-    <div class="missao-section">
-      <div class="missao-section-title"><span>🎯</span> Para quem é o EmpreendeBR?</div>
-      <div class="missao-body">
-        <p>O EmpreendeBR é feito para <strong>quem tem ou quer abrir uma empresa formal com CNPJ</strong>, atuando dentro de um <strong>setor específico em um município</strong>. Todas as informações aqui vêm de bases públicas oficiais e se referem a <strong>firmas registradas e formalizadas</strong>.</p>
-        <div class="missao-aviso">
-          <div class="aviso-icon">👥</div>
-          <p><strong>Se você é um profissional liberal autônomo, MEI que trabalha sozinho ou presta serviços em vários municípios</strong>, talvez nem todos os indicadores façam sentido para o seu caso. Isso porque medimos a atividade no município onde a empresa está registrada, e não necessariamente onde ela presta serviço.</p>
+
+    <div class="missao-grid" id="ancora-missao">
+      <div class="missao-bloco">
+        <div class="bloco-num">01 · O problema</div>
+        <h3>Análises que custavam centenas de milhares de reais</h3>
+        <p>Grandes empresas contratam consultorias para entender o mercado em que atuam — quantos concorrentes existem, como os salários evoluem, se o setor está crescendo. Esse tipo de estudo pode custar centenas de milhares de reais. Para a maioria dos empreendedores, <strong>essa informação simplesmente não existia.</strong></p>
+      </div>
+      <div class="missao-bloco destaque">
+        <div class="bloco-num">02 · Nossa missão</div>
+        <h3>Informação de ponta para empresas de todos os tamanhos</h3>
+        <p>O EmpreendeBR processa microdados públicos oficiais — RAIS e Receita Federal — e os transforma em análises claras, visuais e gratuitas. <strong>Você não precisa saber programar nem entender de estatística.</strong> Basta escolher seu estado, município e setor.</p>
+      </div>
+      <div class="missao-bloco">
+        <div class="bloco-num">03 · O que você ganha</div>
+        <h3>Decisões baseadas em evidência, não em intuição</h3>
+        <p>Use os dados para escolher onde abrir uma filial, calibrar seus salários em relação ao mercado, entender se o setor está crescendo — e negociar com mais segurança com fornecedores, parceiros e investidores.</p>
+      </div>
+    </div>
+
+    <div class="perguntas-section">
+      <div class="section-label">Perguntas que você consegue responder com o EmpreendeBR</div>
+      <div class="perguntas-grid">
+        <div class="pergunta-card"><div class="p-icon">📍</div><p>"Vale abrir neste município ou a concorrência já é grande demais?"</p></div>
+        <div class="pergunta-card"><div class="p-icon">📈</div><p>"O setor está crescendo ou encolhendo nos últimos anos?"</p></div>
+        <div class="pergunta-card"><div class="p-icon">🏛️</div><p>"O mercado é dominado por poucos grandes ou pulverizado em pequenos?"</p></div>
+        <div class="pergunta-card"><div class="p-icon">💰</div><p>"Quanto as empresas daqui pagam de salário? Estou acima ou abaixo da média?"</p></div>
+        <div class="pergunta-card"><div class="p-icon">👷</div><p>"O setor está contratando mais ou demitindo nos últimos meses?"</p></div>
+        <div class="pergunta-card"><div class="p-icon">🔍</div><p>"Qual o tamanho típico das empresas do meu setor nessa cidade?"</p></div>
+      </div>
+    </div>
+
+    <div class="aviso-dados">
+      <div class="av-icon">⚠️</div>
+      <div>
+        <h4>O que esses dados capturam — e o que não capturam</h4>
+        <p>Todos os indicadores se referem a <strong>empresas com CNPJ ativo e trabalhadores com carteira assinada (CLT)</strong>. Autônomos, MEIs que trabalham sozinhos, prestadores de serviço PJ e trabalhadores informais <strong>não aparecem nos números</strong>. Em setores com alta informalidade — como beleza, construção civil ou pequeno comércio — os dados representam apenas parte do mercado real. Use as informações como referência estratégica, não como retrato completo.</p>
+      </div>
+    </div>
+
+    <div class="sobre-contato-grid">
+      <div class="sobre-card">
+        <h3>👩‍💻 Sobre o projeto</h3>
+        <p>O EmpreendeBR foi criado por <strong>Lina</strong>, mestre e doutoranda em Economia.</p>
+        <p>O projeto nasceu de uma constatação simples: os dados que embasam artigos acadêmicos e relatórios de grandes consultorias são <strong>públicos e gratuitos</strong> — mas exigem conhecimento técnico para acessar e processar. O EmpreendeBR faz esse trabalho e entrega o resultado de forma direta e acessível.</p>
+        <p>Todos os indicadores são construídos a partir de dados oficiais da <strong>RAIS (Ministério do Trabalho)</strong>.</p>
+      </div>
+      <div class="sobre-card">
+        <h3>💬 Dúvidas e sugestões</h3>
+        <p style="color:var(--cinza);font-size:12px;margin-bottom:14px;">Encontrou algo estranho nos dados? Quer sugerir um indicador? Tem dúvidas sobre a metodologia? Manda uma mensagem!</p>
+        <div class="contato-form">
+          <input type="text" placeholder="Seu nome (opcional)" id="contato-nome">
+          <input type="email" placeholder="Seu e-mail (para respondermos)" id="contato-email">
+          <textarea placeholder="Sua dúvida ou sugestão..." id="contato-msg"></textarea>
+          <button class="btn-contato" onclick="enviarContato()">Enviar mensagem →</button>
         </div>
-        <div class="missao-aviso" style="margin-top:12px;background:rgba(0,200,150,0.05);border-color:rgba(0,200,150,0.2);">
-          <div class="aviso-icon">📍</div>
-          <p>Os dados também <span class="destaque">funcionam melhor para negócios com atuação local</span>, como comércios, indústrias ou serviços fixos. Para serviços mais móveis (como consultorias, fretes, aulas particulares etc.), a localização pode não refletir a realidade do mercado.</p>
-        </div>
-        <p style="margin-top:20px;">O objetivo do EmpreendeBR é ajudar você a entender <strong>como está o seu setor na sua cidade</strong> e tomar decisões com base em dados confiáveis e atualizados.</p>
+        <div class="contato-email-link">ou escreva para <a href="mailto:empreendebr.painel@gmail.com">empreendebr.painel@gmail.com</a></div>
       </div>
     </div>
-    <div class="missao-section">
-      <div class="missao-section-title"><span>🎯</span> Nosso Objetivo</div>
-      <div class="missao-body">
-        <div class="callout">"O poder dos grandes dados, agora nas mãos dos pequenos negócios."</div>
-        <p>Empresas de grande porte costumam ter acesso a análises detalhadas sobre mercado, concorrência e oportunidades. Isso porque conseguem processar grandes volumes de dados — algo que exige conhecimento técnico e poder computacional.</p>
-        <p><em>Mas, até agora, pequenas empresas não acessavam estas informações.</em></p>
-        <p>O EmpreendeBR nasceu para quebrar essa barreira. Nosso objetivo é <strong>democratizar o acesso a informações estratégicas</strong>, reunindo e organizando dados públicos de forma simples, visual e útil para quem empreende no Brasil.</p>
-        <p>Acreditamos que <strong>dados de qualidade podem transformar o jeito como pequenos negócios tomam decisões</strong> — ajudando a escolher onde abrir uma filial, entender o perfil do mercado local ou identificar oportunidades escondidas. Tudo que mostramos aqui vem de <strong>bases públicas oficiais</strong>, como RAIS, Receita Federal, INPI, entre outras. Você não precisa saber programar nem entender de estatística para usá-las.</p>
-        <p style="color:var(--amarelo);font-weight:500;font-style:italic;">Queremos tornar informações de alto nível acessíveis para empresas de todos os tamanhos.</p>
-      </div>
+
+    <div class="instagram-strip">
+      <a href="https://instagram.com/empreende_br_" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+        </svg>
+        Siga o EmpreendeBR no Instagram
+      </a>
     </div>
-    <div class="missao-section">
-      <div class="missao-section-title"><span>🧩</span> O que você encontra aqui</div>
-      <div class="missao-cards">
-        <div class="missao-card"><div class="card-icon">🏢</div><h3>Estrutura do mercado</h3><p>Quantas empresas atuam no seu setor, como se distribuem por porte e qual o grau de concentração do mercado local.</p></div>
-        <div class="missao-card"><div class="card-icon">👷</div><h3>Emprego e salários</h3><p>Número de trabalhadores formais, evolução do emprego ao longo dos anos e o salário médio praticado no setor.</p></div>
-        <div class="missao-card"><div class="card-icon">📈</div><h3>Tendências e dinâmica</h3><p>Série histórica de abertura e fechamento de empresas, sinalizando se o setor está em expansão ou retração.</p></div>
-      </div>
-    </div>
-    <div style="text-align:center;padding:32px 0 48px;">
-      <button class="btn-buscar" onclick="showPage('dash')" style="font-size:16px;padding:16px 48px;">Explorar os dados →</button>
-    </div>
-  </div>
+
+    <footer>
+      <p>© 2024 EmpreendeBR · Dados: RAIS/MTE · Receita Federal</p>
+      <p>Feito com dados públicos brasileiros 🇧🇷 · <a href="#" onclick="showPage('dash')">Acessar dashboard</a></p>
+    </footer>
+
+  </div><!-- /home -->
+
 
   <!-- ══ DASHBOARD ══ -->
   <div class="page" id="page-dash">
+
     <div class="dash-hero">
-      <h1>Inteligência de mercado para o <span class="hl">empreendedor brasileiro</span></h1>
-      <p>Selecione seu município e setor para acessar dados da RAIS e Receita Federal.</p>
+      <h1>Análise de mercado para o <span class="hl">empreendedor brasileiro</span></h1>
+      <p>Selecione estado, município e setor para acessar os dados.</p>
     </div>
 
     <div class="filters-card">
       <div class="filters-title">⬡ Selecione sua análise</div>
       <div class="filters-grid">
         <div class="field-group">
+          <label>Estado</label>
+          <select id="uf" onchange="filtrarMunicipios()">
+            <option value="">UF...</option>
+            <option value="AC">AC</option><option value="AL">AL</option><option value="AM">AM</option>
+            <option value="AP">AP</option><option value="BA">BA</option><option value="CE">CE</option>
+            <option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option>
+            <option value="MA">MA</option><option value="MG">MG</option><option value="MS">MS</option>
+            <option value="MT">MT</option><option value="PA">PA</option><option value="PB">PB</option>
+            <option value="PE">PE</option><option value="PI">PI</option><option value="PR">PR</option>
+            <option value="RJ">RJ</option><option value="RN">RN</option><option value="RO">RO</option>
+            <option value="RR">RR</option><option value="RS">RS</option><option value="SC">SC</option>
+            <option value="SE">SE</option><option value="SP">SP</option><option value="TO">TO</option>
+          </select>
+        </div>
+        <div class="field-group">
           <label>Município</label>
-          <select id="municipio">
-            <option value="">Escolha o município...</option>
-            <!-- 
-              INSTRUÇÃO: substitua estas opções pelos municípios reais.
-              O value deve ser o id_municipio (código IBGE) como string.
-              Exemplo: <option value="3543402">Ribeirão Preto — SP</option>
-              
-              Para gerar esta lista automaticamente em R:
-              municipios_lista <- read_csv("csvs/numero.csv") |>
-                distinct(id_municipio) |>
-                left_join(tabela_nomes_municipios) |>
-                arrange(nome)
-              E exportar como HTML options.
-            -->
-            <option value="3550308">São Paulo — SP</option>
-            <option value="3543402">Ribeirão Preto — SP</option>
-            <option value="3509502">Campinas — SP</option>
-            <option value="3106200">Belo Horizonte — MG</option>
-            <option value="4106902">Curitiba — PR</option>
-            <option value="2304400">Fortaleza — CE</option>
-            <option value="2611606">Recife — PE</option>
-            <option value="1302603">Manaus — AM</option>
+          <select id="municipio" disabled>
+            <option value="">Selecione o estado primeiro...</option>
           </select>
         </div>
         <div class="field-group">
           <label>Setor (CNAE seção)</label>
           <select id="setor">
             <option value="">Escolha o setor...</option>
-            <!-- CNAEs seção (letra) conforme seus dados -->
             <option value="A">A · Agricultura e pecuária</option>
             <option value="B">B · Indústrias extrativas</option>
             <option value="C">C · Indústrias de transformação</option>
@@ -333,112 +360,161 @@
 
     <div class="empty-state" id="emptyState">
       <div class="empty-icon">🔍</div>
-      <h3>Selecione município e setor para começar</h3>
-      <p>Dados atualizados anualmente com base na RAIS e Receita Federal.</p>
+      <h3>Selecione estado, município e setor</h3>
+      <p>Os dados cobrem todos os municípios brasileiros. Apenas estabelecimentos com CNPJ e vínculos com carteira assinada são contabilizados.</p>
     </div>
 
     <div class="loading" id="loadingState">
       <div class="spinner"></div>
-      <p>Carregando dados...</p>
+      <p id="loadingMsg">Carregando dados...</p>
     </div>
 
     <div class="erro-state" id="erroState">
-      <div class="erro-icon">⚠️</div>
-      <h3>Dados não encontrados</h3>
-      <p id="erroMsg">Não há dados disponíveis para esta combinação.</p>
+      <div class="erro-icon">🔎</div>
+      <h3>Nenhum dado encontrado</h3>
+      <p id="erroMsg">Não encontramos atividade formal neste setor para este município.</p>
     </div>
 
     <div id="dashboard" class="hidden">
 
       <div class="result-label" id="resultLabel">
         <div class="dot"></div>
-        <span>Análise: <span class="muni" id="labelMuni">—</span> · <span id="labelSetor">—</span></span>
+        <span><span class="muni" id="labelMuni">—</span> · <span id="labelSetor">—</span></span>
       </div>
 
-      <!-- KPIs -->
-      <div class="kpi-grid" id="kpiGrid">
-        <div class="kpi-card destaque">
-          <div class="kpi-label">Estabelecimentos ativos</div>
-          <div class="kpi-value verde" id="kpi-numero">—</div>
-          <div class="kpi-delta" id="kpi-numero-delta"></div>
-          <button class="tip-btn" onclick="toggleTip(this)">?</button>
-          <div class="tooltip-popup">Número total de CNPJs ativos no setor e município selecionados, conforme Receita Federal. Inclui todos os portes — de MEI a grande empresa.</div>
+      <!-- SEÇÃO 1: EMPRESAS -->
+      <div class="dash-section" id="sec1">
+        <div class="dash-section-header">
+          <span class="sec-icon">🏢</span>
+          <h2>Empresas</h2>
+          <span class="sec-badge">Fonte: RAIS</span>
         </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Trabalhadores formais</div>
-          <div class="kpi-value" id="kpi-vinc">—</div>
-          <div class="kpi-delta" id="kpi-vinc-delta"></div>
-          <button class="tip-btn" onclick="toggleTip(this)">?</button>
-          <div class="tooltip-popup">Total de vínculos empregatícios formais (CLT) registrados na RAIS para este setor e município. Não inclui autônomos ou informais.</div>
+        <div class="kpi-row kpi-row-2">
+          <div class="kpi-card destaque">
+            <div class="kpi-label">Estabelecimentos ativos em 2024</div>
+            <div class="kpi-value verde" id="kpi-numero">—</div>
+            <div class="kpi-delta" id="kpi-numero-delta"></div>
+            <button class="tip-btn" onclick="toggleTip(this)">?</button>
+            <div class="tooltip-popup">Total de CNPJs ativos neste setor e município (RAIS). Cada estabelecimento conta individualmente — uma rede com 3 lojas na cidade aparece como 3. Inclui todos os portes, de MEI a grande empresa. <strong>Não inclui autônomos sem CNPJ.</strong></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Trabalhadores formais em 2024</div>
+            <div class="kpi-value" id="kpi-vinc">—</div>
+            <div class="kpi-delta" id="kpi-vinc-delta"></div>
+            <button class="tip-btn" onclick="toggleTip(this)">?</button>
+            <div class="tooltip-popup">Vínculos com carteira assinada (CLT) registrados na RAIS. <strong>Não inclui prestadores PJ, autônomos, estagiários ou trabalhadores informais.</strong> Em setores com alta informalidade, o número real pode ser muito maior do que este.</div>
+          </div>
         </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Salário médio</div>
-          <div class="kpi-value amarelo" id="kpi-salario">—</div>
-          <div class="kpi-delta" id="kpi-salario-delta"></div>
-          <button class="tip-btn" onclick="toggleTip(this)">?</button>
-          <div class="tooltip-popup">Média salarial dos vínculos formais no setor (RAIS). Serve como referência para entender o padrão de remuneração e a atratividade do mercado de trabalho local.</div>
-        </div>
-        <div class="kpi-card">
-          <div class="kpi-label">Concentração (HHI)</div>
-          <div class="kpi-value" id="kpi-hhi">—</div>
-          <div class="kpi-delta" id="kpi-hhi-delta"></div>
-          <button class="tip-btn" onclick="toggleTip(this)">?</button>
-          <div class="tooltip-popup">Índice Herfindahl-Hirschman (HHI): mede a concentração do mercado. Valores próximos de 0 indicam mercado fragmentado (muita concorrência); próximos de 1 indicam monopólio ou oligopólio.</div>
-        </div>
-      </div>
-
-      <!-- Séries históricas -->
-      <div class="section-row" id="row2">
-        <div class="section-row-2">
+        <div class="chart-row chart-row-2">
           <div class="chart-card">
             <div class="chart-header">
-              <div>
-                <div class="chart-title">Evolução de estabelecimentos</div>
-                <div class="chart-sub" id="sub-numero">Número de CNPJs ativos</div>
-              </div>
+              <div><div class="chart-title">Evolução de estabelecimentos</div><div class="chart-sub" id="sub-numero">CNPJs ativos por ano</div></div>
               <button class="tip-btn inline" onclick="toggleTip(this)">?</button>
             </div>
-            <div class="tooltip-popup" style="right:0">Série histórica do número de estabelecimentos com CNPJ ativo no setor e município. Permite ver se o mercado está em expansão, estabilidade ou retração.</div>
-            <div style="position:relative;height:160px"><canvas id="lineChart1"></canvas></div>
+            <div class="tooltip-popup" style="right:0">Série histórica de CNPJs ativos. Alta indica novos entrantes chegando ao mercado; queda pode sinalizar consolidação ou crise no setor.</div>
+            <div style="position:relative;height:145px"><canvas id="lineChart1"></canvas></div>
           </div>
           <div class="chart-card">
             <div class="chart-header">
-              <div>
-                <div class="chart-title">Evolução de empregados formais</div>
-                <div class="chart-sub" id="sub-vinc">Vínculos CLT registrados</div>
-              </div>
+              <div><div class="chart-title">Evolução de empregados formais</div><div class="chart-sub" id="sub-vinc">Vínculos CLT por ano</div></div>
               <button class="tip-btn inline" onclick="toggleTip(this)">?</button>
             </div>
-            <div class="tooltip-popup" style="right:0">Série histórica de vínculos formais (RAIS). Mostra se o setor está gerando ou perdendo empregos formais ao longo do tempo.</div>
-            <div style="position:relative;height:160px"><canvas id="lineChart2"></canvas></div>
+            <div class="tooltip-popup" style="right:0">Série histórica de vínculos CLT (RAIS). Permite ver se o setor está gerando ou destruindo empregos formais — independentemente da abertura ou fechamento de empresas.</div>
+            <div style="position:relative;height:145px"><canvas id="lineChart2"></canvas></div>
           </div>
         </div>
       </div>
 
-      <!-- Salário e HHI históricos -->
-      <div class="section-row" id="row3" style="transition-delay:0.25s">
-        <div class="section-row-2">
+      <!-- SEÇÃO 2: SALÁRIOS -->
+      <div class="dash-section" id="sec2" style="transition-delay:0.1s">
+        <div class="dash-section-header">
+          <span class="sec-icon">💰</span>
+          <h2>Salários</h2>
+          <span class="sec-badge">Fonte: RAIS</span>
+        </div>
+        <div class="kpi-row kpi-row-2">
+          <div class="kpi-card destaque">
+            <div class="kpi-label">Salário médio em 2024</div>
+            <div class="kpi-value amarelo" id="kpi-salario">—</div>
+            <div class="kpi-delta" id="kpi-salario-delta"></div>
+            <button class="tip-btn" onclick="toggleTip(this)">?</button>
+            <div class="tooltip-popup">Média dos salários dos vínculos CLT neste setor e município (RAIS). Em R$ nominais — não corrigidos pela inflação. Use para comparar se sua empresa paga acima ou abaixo do mercado local.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Saldo de empregos em 2024</div>
+            <div class="kpi-value" id="kpi-saldo">—</div>
+            <div class="kpi-delta" id="kpi-saldo-delta"></div>
+            <button class="tip-btn" onclick="toggleTip(this)">?</button>
+            <div class="tooltip-popup">Admissões menos desligamentos no ano. Positivo: o setor criou mais empregos do que fechou — mercado aquecido. Negativo: o setor está encolhendo em termos de emprego formal.</div>
+          </div>
+        </div>
+        <div class="chart-row chart-row-3">
           <div class="chart-card">
             <div class="chart-header">
-              <div>
-                <div class="chart-title">Evolução do salário médio</div>
-                <div class="chart-sub">R$ nominais — RAIS</div>
-              </div>
+              <div><div class="chart-title">Evolução do salário médio</div><div class="chart-sub">R$ nominais — RAIS</div></div>
               <button class="tip-btn inline" onclick="toggleTip(this)">?</button>
             </div>
-            <div class="tooltip-popup" style="right:0">Média salarial dos vínculos formais ao longo dos anos. Valores em R$ nominais (não deflacionados).</div>
-            <div style="position:relative;height:160px"><canvas id="lineChart3"></canvas></div>
+            <div class="tooltip-popup" style="right:0">Evolução do salário médio ao longo dos anos. Valores nominais (sem correção pela inflação). Alta consistente acima da inflação indica setor valorizando mão de obra.</div>
+            <div style="position:relative;height:145px"><canvas id="lineChart3"></canvas></div>
           </div>
           <div class="chart-card">
             <div class="chart-header">
-              <div>
-                <div class="chart-title">Evolução da concentração (HHI)</div>
-                <div class="chart-sub">Índice Herfindahl-Hirschman</div>
-              </div>
+              <div><div class="chart-title">Admissões por ano</div><div class="chart-sub">Novos contratos CLT — RAIS</div></div>
               <button class="tip-btn inline" onclick="toggleTip(this)">?</button>
             </div>
-            <div class="tooltip-popup" style="right:0">Evolução do HHI ao longo do tempo. Queda indica mercado ficando mais competitivo; alta indica concentração crescente.</div>
-            <div style="position:relative;height:160px"><canvas id="lineChart4"></canvas></div>
+            <div class="tooltip-popup" style="right:0">Total de novas contratações CLT no ano. Alta indica setor em expansão e mercado de trabalho aquecido — o que pode significar maior dificuldade e custo para contratar.</div>
+            <div style="position:relative;height:145px"><canvas id="lineChart4"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-header">
+              <div><div class="chart-title">Desligamentos por ano</div><div class="chart-sub">Encerramentos CLT — RAIS</div></div>
+              <button class="tip-btn inline" onclick="toggleTip(this)">?</button>
+            </div>
+            <div class="tooltip-popup" style="right:0">Total de desligamentos CLT no ano (demissões, pedidos de demissão, aposentadorias). Alta rotatividade — admissões e desligamentos igualmente elevados — indica setor com empregos instáveis ou sazonais.</div>
+            <div style="position:relative;height:145px"><canvas id="lineChart5"></canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEÇÃO 3: ESTRUTURA DE MERCADO -->
+      <div class="dash-section" id="sec3" style="transition-delay:0.2s">
+        <div class="dash-section-header">
+          <span class="sec-icon">🏛️</span>
+          <h2>Estrutura de mercado</h2>
+          <span class="sec-badge">Fonte: RAIS</span>
+        </div>
+        <div class="kpi-row kpi-row-2">
+          <div class="kpi-card">
+            <div class="kpi-label">Concentração de mercado (HHI) em 2024</div>
+            <div class="kpi-value" id="kpi-hhi">—</div>
+            <div class="kpi-delta" id="kpi-hhi-delta"></div>
+            <button class="tip-btn" onclick="toggleTip(this)">?</button>
+            <div class="tooltip-popup">O HHI mede o quanto o mercado é concentrado. <strong>Próximo de 0:</strong> muitas empresas pequenas disputando clientes (mercado pulverizado — boa notícia para novos entrantes). <strong>Próximo de 1:</strong> uma ou poucas empresas dominam. Acima de 0,25 é considerado mercado muito concentrado.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Tamanho médio das empresas em 2024</div>
+            <div class="kpi-value azul" id="kpi-tamanho">—</div>
+            <div class="kpi-delta" id="kpi-tamanho-delta"></div>
+            <button class="tip-btn" onclick="toggleTip(this)">?</button>
+            <div class="tooltip-popup">Média de trabalhadores CLT por estabelecimento (vínculos ÷ CNPJs). Um valor de 2 significa que a empresa típica tem 2 funcionários com carteira. Valores altos indicam setor de empresas estruturadas; valores baixos, setor de micro e pequenos negócios.</div>
+          </div>
+        </div>
+        <div class="chart-row chart-row-2">
+          <div class="chart-card">
+            <div class="chart-header">
+              <div><div class="chart-title">Evolução do HHI</div><div class="chart-sub">Índice de concentração de mercado</div></div>
+              <button class="tip-btn inline" onclick="toggleTip(this)">?</button>
+            </div>
+            <div class="tooltip-popup" style="right:0">Evolução da concentração ao longo do tempo. Queda indica mercado ficando mais competitivo. Alta indica que poucas empresas estão ganhando fatia maior do mercado.</div>
+            <div style="position:relative;height:145px"><canvas id="lineChart6"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-header">
+              <div><div class="chart-title">Evolução do tamanho médio</div><div class="chart-sub">Vínculos CLT por estabelecimento</div></div>
+              <button class="tip-btn inline" onclick="toggleTip(this)">?</button>
+            </div>
+            <div class="tooltip-popup" style="right:0">Evolução do tamanho médio (vínculos ÷ CNPJs). Crescimento indica que as empresas estão contratando mais ou que as menores saíram do mercado. Queda pode indicar entrada de novos microempreendedores.</div>
+            <div style="position:relative;height:145px"><canvas id="lineChart7"></canvas></div>
           </div>
         </div>
       </div>
@@ -446,247 +522,227 @@
     </div><!-- /dashboard -->
 
     <footer>
-      <p>Fonte: RAIS/MTE · Receita Federal · <a href="#" onclick="showPage('missao')">Sobre o projeto</a></p>
-      <p>Última atualização: <strong>RAIS 2023</strong></p>
+      <p>Fonte: RAIS/MTE · Receita Federal · <a href="#" onclick="showPage('home')">Sobre o projeto</a></p>
+      <p>Última atualização: <strong>RAIS 2024</strong></p>
     </footer>
+
   </div><!-- /page-dash -->
 
 </div><!-- /container -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
-// ── CONFIGURAÇÃO ─────────────────────────────────────────────
-const DATA_PATH = 'data/';
+// ── MUNICÍPIOS ─────────────────────────────────────────────
+// Substitua pelo gerado pelo R (municipios_js.txt)
+const MUNICIPIOS = [
+  ["1302603","Manaus","AM"],["1501402","Belém","PA"],["2304400","Fortaleza","CE"],
+  ["2507507","João Pessoa","PB"],["2611606","Recife","PE"],["2927408","Salvador","BA"],
+  ["3106200","Belo Horizonte","MG"],["3509502","Campinas","SP"],
+  ["3543402","Ribeirão Preto","SP"],["3550308","São Paulo","SP"],
+  ["4106902","Curitiba","PR"],["4314902","Porto Alegre","RS"],
+  ["5300108","Brasília","DF"],["5208707","Goiânia","GO"],
+];
 
-// Cache por indicador: { "numero": {...}, "vinc": {...} }
-// Cada JSON é carregado uma vez e reutilizado para qualquer município/setor
-const cache = {};
+function filtrarMunicipios() {
+  const uf = document.getElementById('uf').value;
+  const sel = document.getElementById('municipio');
+  sel.innerHTML = '';
+  if (!uf) { sel.innerHTML='<option value="">Selecione o estado primeiro...</option>'; sel.disabled=true; return; }
+  const f = MUNICIPIOS.filter(m=>m[2]===uf).sort((a,b)=>a[1].localeCompare(b[1],'pt-BR'));
+  if (!f.length) { sel.innerHTML='<option value="">Nenhum município disponível</option>'; sel.disabled=true; return; }
+  sel.innerHTML = '<option value="">Escolha o município...</option>';
+  f.forEach(([cod,nome])=>{ const o=document.createElement('option'); o.value=cod; o.textContent=nome; sel.appendChild(o); });
+  sel.disabled = false;
+}
 
-// ── NAVEGAÇÃO ─────────────────────────────────────────────────
+// ── NAVEGAÇÃO ────────────────────────────────────────────────
 function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  document.getElementById('nav-' + id).classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.getElementById('nav-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ── TOOLTIP ───────────────────────────────────────────────────
+// ── CONTATO ──────────────────────────────────────────────────
+function enviarContato() {
+  const msg = document.getElementById('contato-msg').value.trim();
+  if (!msg) { alert('Por favor, escreva sua mensagem antes de enviar.'); return; }
+  const nome  = document.getElementById('contato-nome').value.trim();
+  const email = document.getElementById('contato-email').value.trim();
+  const assunto = encodeURIComponent('EmpreendeBR — ' + (nome||'Mensagem'));
+  const corpo   = encodeURIComponent((nome?'Nome: '+nome+'\n':'')+(email?'Email: '+email+'\n\n':'\n')+msg);
+  window.location.href = `mailto:empreendebr.painel@gmail.com?subject=${assunto}&body=${corpo}`;
+}
+
+// ── TOOLTIP ──────────────────────────────────────────────────
 function toggleTip(btn) {
-  const popup = btn.nextElementSibling;
-  const isOpen = popup.classList.contains('show');
-  document.querySelectorAll('.tooltip-popup.show').forEach(p => p.classList.remove('show'));
-  if (!isOpen) popup.classList.add('show');
+  const p = btn.nextElementSibling;
+  const open = p.classList.contains('show');
+  document.querySelectorAll('.tooltip-popup.show').forEach(x=>x.classList.remove('show'));
+  if (!open) p.classList.add('show');
 }
-document.addEventListener('click', e => {
-  if (!e.target.classList.contains('tip-btn'))
-    document.querySelectorAll('.tooltip-popup.show').forEach(p => p.classList.remove('show'));
-});
+document.addEventListener('click', e=>{ if (!e.target.classList.contains('tip-btn')) document.querySelectorAll('.tooltip-popup.show').forEach(x=>x.classList.remove('show')); });
 
-// ── HELPERS ───────────────────────────────────────────────────
-function fmt(n) { return Number(n).toLocaleString('pt-BR', {maximumFractionDigits: 2}); }
-function fmtR(n) { return 'R$ ' + fmt(n); }
-
-function calcDelta(series) {
-  // Retorna variação % do último ano vs penúltimo
-  const vals = series.filter(v => v != null && !isNaN(v));
-  if (vals.length < 2) return null;
-  const ant = vals[vals.length - 2];
-  const ult = vals[vals.length - 1];
-  if (ant === 0) return null;
-  return ((ult - ant) / ant) * 100;
+// ── HELPERS ──────────────────────────────────────────────────
+function fmt(n,d=0){return Number(n).toLocaleString('pt-BR',{maximumFractionDigits:d});}
+function fmtR(n){return 'R$ '+fmt(n,0);}
+function calcDelta(vals){
+  const v=vals.filter(x=>x!=null&&!isNaN(x));
+  if(v.length<2)return null;
+  const ant=v[v.length-2],ult=v[v.length-1];
+  if(ant===0)return null;
+  return((ult-ant)/ant)*100;
 }
-
-function renderDelta(el, delta, reverse = false) {
-  if (delta === null) { el.style.display = 'none'; return; }
-  const pct = delta.toFixed(1);
-  const positivo = reverse ? delta < 0 : delta > 0;
-  el.className = 'kpi-delta ' + (delta === 0 ? 'neutral' : positivo ? 'up' : 'down');
-  const seta = delta > 0 ? '↑' : delta < 0 ? '↓' : '→';
-  el.textContent = `${seta} ${Math.abs(pct)}% vs ano anterior`;
-  el.style.display = '';
+function renderDelta(el,delta,reverse=false){
+  if(delta===null){el.style.display='none';return;}
+  const pos=reverse?delta<0:delta>0;
+  el.className='kpi-delta '+(delta===0?'neutral':pos?'up':'down');
+  const s=delta>0?'↑':delta<0?'↓':'→';
+  el.textContent=`${s} ${Math.abs(delta).toFixed(1)}% vs ano anterior`;
+  el.style.display='';
 }
 
-// ── GRÁFICO DE LINHA ──────────────────────────────────────────
-const charts = {};
-function hexToRgba(hex, a) {
-  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
-  return `rgba(${r},${g},${b},${a})`;
-}
-
-function makeLineChart(id, labels, data, color, prefix = '') {
-  if (charts[id]) charts[id].destroy();
-  const ctx = document.getElementById(id).getContext('2d');
-  const grad = ctx.createLinearGradient(0,0,0,160);
-  grad.addColorStop(0, hexToRgba(color, 0.25));
-  grad.addColorStop(1, hexToRgba(color, 0));
-  charts[id] = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        data, borderColor: color, backgroundColor: grad,
-        borderWidth: 2.5, fill: true, tension: 0.4,
-        pointBackgroundColor: color, pointRadius: 3, pointHoverRadius: 5,
-        spanGaps: true
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#112040', borderColor: color, borderWidth: 1,
-          titleFont: {family:'Syne'}, bodyFont: {family:'DM Sans'},
-          callbacks: { label: ctx => ' ' + prefix + fmt(ctx.parsed.y) }
-        }
-      },
-      scales: {
-        x: { grid: {color:'rgba(255,255,255,0.04)'}, ticks: {color:'#8899bb', font:{family:'DM Sans',size:11}} },
-        y: { grid: {color:'rgba(255,255,255,0.04)'}, ticks: {color:'#8899bb', font:{family:'DM Sans',size:11},
-          callback: v => prefix + fmt(v) } }
-      }
-    }
+// ── GRÁFICOS ─────────────────────────────────────────────────
+const charts={};
+function hexToRgba(hex,a){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return `rgba(${r},${g},${b},${a})`;}
+function makeLineChart(id,labels,data,color,prefix=''){
+  if(charts[id])charts[id].destroy();
+  const ctx=document.getElementById(id).getContext('2d');
+  const grad=ctx.createLinearGradient(0,0,0,145);
+  grad.addColorStop(0,hexToRgba(color,0.2));grad.addColorStop(1,hexToRgba(color,0));
+  charts[id]=new Chart(ctx,{
+    type:'line',
+    data:{labels,datasets:[{data,borderColor:color,backgroundColor:grad,borderWidth:2.5,fill:true,tension:0.4,pointBackgroundColor:color,pointRadius:3,pointHoverRadius:5,spanGaps:true}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#112040',borderColor:color,borderWidth:1,titleFont:{family:'Syne'},bodyFont:{family:'DM Sans'},callbacks:{label:c=>' '+prefix+fmt(c.parsed.y)}}},
+      scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#8899bb',font:{family:'DM Sans',size:10}}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#8899bb',font:{family:'DM Sans',size:10},callback:v=>prefix+fmt(v)}}}}
   });
 }
 
-// ── CARREGAR INDICADOR (com cache) ────────────────────────────
-async function carregarIndicador(nome) {
-  if (cache[nome]) return cache[nome];
-  const resp = await fetch(`${DATA_PATH}${nome}.json`);
-  if (!resp.ok) throw new Error(`Arquivo ${nome}.json não encontrado (HTTP ${resp.status})`);
-  cache[nome] = await resp.json();
+// ── DADOS ────────────────────────────────────────────────────
+const DATA_PATH='data/';
+const cache={};
+
+async function carregarIndicador(nome){
+  if(cache[nome])return cache[nome];
+  const resp=await fetch(`${DATA_PATH}${nome}.json`);
+  if(!resp.ok)throw new Error(`${nome}.json não encontrado`);
+  cache[nome]=await resp.json();
   return cache[nome];
 }
 
-// Extrai série de anos e valores para um município+setor de um JSON de indicador
-// Estrutura do JSON: { "3543402": { "G": { anos:[...], valores:[...] } } }
-function getSerie(dadosIndicador, codMuni, codSetor) {
-  const muni = dadosIndicador[codMuni];
-  if (!muni || !muni[codSetor]) return null;
-  const { anos, valores } = muni[codSetor];
-  // Retorna array de { ano, valor } ordenado
-  return anos.map((a, i) => ({ ano: a, valor: valores[i] }))
-             .sort((a, b) => a.ano - b.ano);
+function getSerie(d,muni,setor){
+  const m=d[muni]; if(!m||!m[setor])return null;
+  const {anos,valores}=m[setor];
+  return anos.map((a,i)=>({ano:a,valor:valores[i]})).sort((a,b)=>a.ano-b.ano);
 }
+function lv(s){if(!s||!s.length)return{labels:[],valores:[]};return{labels:s.map(p=>String(p.ano)),valores:s.map(p=>p.valor)};}
+function ultimo(s){if(!s||!s.length)return null;return s[s.length-1].valor;}
 
-// Converte série {ano, valor}[] em arrays separados para o Chart.js
-function serieParaLabelsValores(serie) {
-  if (!serie) return { labels: [], valores: [] };
-  return {
-    labels:  serie.map(p => String(p.ano)),
-    valores: serie.map(p => p.valor)
-  };
-}
+// ── BUSCAR ───────────────────────────────────────────────────
+// Nomes dos JSONs esperados em data/:
+//   numero.json    → número de estabelecimentos ativos
+//   vinc.json      → vínculos CLT
+//   salario.json   → salário médio
+//   admissoes.json → admissões no ano
+//   demissoes.json → desligamentos no ano
+//   hhi.json       → índice HHI de concentração
+// tamanho médio é calculado automaticamente: vinc ÷ numero
 
-// ── BUSCAR DADOS ──────────────────────────────────────────────
-async function buscar() {
-  const muniSelect  = document.getElementById('municipio');
-  const setorSelect = document.getElementById('setor');
-  const codMuni  = muniSelect.value;
-  const codSetor = setorSelect.value;
+async function buscar(){
+  const muniSel=document.getElementById('municipio');
+  const setorSel=document.getElementById('setor');
+  const codMuni=muniSel.value, codSetor=setorSel.value;
+  if(!codMuni||!codSetor){alert('Selecione estado, município e setor.');return;}
 
-  if (!codMuni || !codSetor) {
-    alert('Selecione município e setor para ver a análise.');
-    return;
-  }
+  const muniNome=muniSel.options[muniSel.selectedIndex].text;
+  const setorNome=setorSel.options[setorSel.selectedIndex].text;
 
-  const muniNome  = muniSelect.options[muniSelect.selectedIndex].text;
-  const setorNome = setorSelect.options[setorSelect.selectedIndex].text;
-
-  // UI: loading
   document.getElementById('emptyState').classList.add('hidden');
   document.getElementById('dashboard').classList.add('hidden');
-  document.getElementById('erroState').style.display = 'none';
-  document.getElementById('loadingState').style.display = 'block';
-  document.getElementById('btnBuscar').disabled = true;
+  document.getElementById('erroState').style.display='none';
+  document.getElementById('loadingState').style.display='block';
+  document.getElementById('loadingMsg').textContent=`Carregando dados de ${muniNome}...`;
+  document.getElementById('btnBuscar').disabled=true;
 
   try {
-    // Carrega os indicadores disponíveis em paralelo
-    // Adicione aqui os nomes dos seus JSONs (sem .json)
-    const INDICADORES = ['numero', 'vinc']; // adicione 'salario', 'hhi' quando tiver
+    const INDS=['numero','vinc','salario','admissoes','demissoes','hhi'];
+    const jsons=await Promise.all(INDS.map(n=>carregarIndicador(n).catch(()=>null)));
+    const d=Object.fromEntries(INDS.map((n,i)=>[n,jsons[i]]));
 
-    const jsons = await Promise.all(INDICADORES.map(carregarIndicador));
-    const dados = Object.fromEntries(INDICADORES.map((nome, i) => [nome, jsons[i]]));
+    const sNum=d.numero    ?getSerie(d.numero,   codMuni,codSetor):null;
+    const sVin=d.vinc      ?getSerie(d.vinc,     codMuni,codSetor):null;
+    const sSal=d.salario   ?getSerie(d.salario,  codMuni,codSetor):null;
+    const sAdm=d.admissoes ?getSerie(d.admissoes,codMuni,codSetor):null;
+    const sDem=d.demissoes ?getSerie(d.demissoes,codMuni,codSetor):null;
+    const sHhi=d.hhi       ?getSerie(d.hhi,      codMuni,codSetor):null;
 
-    // Extrai séries para o município+setor selecionado
-    const serieNumero  = getSerie(dados.numero,  codMuni, codSetor);
-    const serieVinc    = getSerie(dados.vinc,     codMuni, codSetor);
-    const serieSalario = dados.salario ? getSerie(dados.salario, codMuni, codSetor) : null;
-    const serieHhi     = dados.hhi     ? getSerie(dados.hhi,     codMuni, codSetor) : null;
+    if(!sNum&&!sVin) throw new Error('Não encontramos atividade formal neste setor para este município.');
 
-    if (!serieNumero && !serieVinc && !serieSalario && !serieHhi) {
-      throw new Error(`Nenhum dado encontrado para o setor ${codSetor} em ${muniNome}.`);
+    // Tamanho médio calculado on-the-fly
+    let sTam=null;
+    if(sNum&&sVin){
+      const mn=Object.fromEntries(sNum.map(p=>[p.ano,p.valor]));
+      sTam=sVin.filter(p=>mn[p.ano]&&mn[p.ano]>0).map(p=>({ano:p.ano,valor:p.valor/mn[p.ano]}));
     }
 
-    // KPI = último valor da série
-    function ultimo(serie) {
-      if (!serie || serie.length === 0) return null;
-      return serie[serie.length - 1].valor;
+    // Saldo calculado on-the-fly
+    let sSaldo=null;
+    if(sAdm&&sDem){
+      const md=Object.fromEntries(sDem.map(p=>[p.ano,p.valor]));
+      sSaldo=sAdm.filter(p=>md[p.ano]!=null).map(p=>({ano:p.ano,valor:p.valor-md[p.ano]}));
     }
 
-    const ultNumero  = ultimo(serieNumero);
-    const ultVinc    = ultimo(serieVinc);
-    const ultSalario = ultimo(serieSalario);
-    const ultHhi     = ultimo(serieHhi);
+    // KPIs
+    const uNum=ultimo(sNum),uVin=ultimo(sVin),uSal=ultimo(sSal);
+    const uHhi=ultimo(sHhi),uTam=ultimo(sTam),uSal2=ultimo(sSaldo);
 
-    // Preenche KPIs
-    document.getElementById('kpi-numero').textContent  = ultNumero  != null ? fmt(ultNumero)       : '—';
-    document.getElementById('kpi-vinc').textContent    = ultVinc    != null ? fmt(ultVinc)         : '—';
-    document.getElementById('kpi-salario').textContent = ultSalario != null ? fmtR(ultSalario)     : '—';
-    document.getElementById('kpi-hhi').textContent     = ultHhi     != null ? ultHhi.toFixed(4)    : '—';
+    document.getElementById('kpi-numero').textContent  = uNum !=null?fmt(uNum):'—';
+    document.getElementById('kpi-vinc').textContent    = uVin !=null?fmt(uVin):'—';
+    document.getElementById('kpi-salario').textContent = uSal !=null?fmtR(uSal):'—';
+    document.getElementById('kpi-hhi').textContent     = uHhi !=null?uHhi.toFixed(3):'—';
+    document.getElementById('kpi-tamanho').textContent = uTam !=null?fmt(uTam,1)+' func.':'—';
+    document.getElementById('kpi-saldo').textContent   = uSal2!=null?(uSal2>0?'+':'')+fmt(uSal2):'—';
 
-    const valoresNumero  = serieNumero  ? serieNumero.map(p => p.valor)  : [];
-    const valoresVinc    = serieVinc    ? serieVinc.map(p => p.valor)    : [];
-    const valoresSalario = serieSalario ? serieSalario.map(p => p.valor) : [];
-    const valoresHhi     = serieHhi     ? serieHhi.map(p => p.valor)     : [];
+    renderDelta(document.getElementById('kpi-numero-delta'),  calcDelta((sNum ||[]).map(p=>p.valor)));
+    renderDelta(document.getElementById('kpi-vinc-delta'),    calcDelta((sVin ||[]).map(p=>p.valor)));
+    renderDelta(document.getElementById('kpi-salario-delta'), calcDelta((sSal ||[]).map(p=>p.valor)));
+    renderDelta(document.getElementById('kpi-hhi-delta'),     calcDelta((sHhi ||[]).map(p=>p.valor)),true);
+    renderDelta(document.getElementById('kpi-tamanho-delta'), calcDelta((sTam ||[]).map(p=>p.valor)));
+    renderDelta(document.getElementById('kpi-saldo-delta'),   calcDelta((sSaldo||[]).map(p=>p.valor)));
 
-    renderDelta(document.getElementById('kpi-numero-delta'),  calcDelta(valoresNumero));
-    renderDelta(document.getElementById('kpi-vinc-delta'),    calcDelta(valoresVinc));
-    renderDelta(document.getElementById('kpi-salario-delta'), calcDelta(valoresSalario));
-    renderDelta(document.getElementById('kpi-hhi-delta'),     calcDelta(valoresHhi), true);
+    document.getElementById('labelMuni').textContent=muniNome;
+    document.getElementById('labelSetor').textContent=setorNome;
+    const rng=s=>s&&s.length?` · ${s[0].ano}–${s[s.length-1].ano}`:'';
+    document.getElementById('sub-numero').textContent='CNPJs ativos por ano'+rng(sNum);
+    document.getElementById('sub-vinc').textContent='Vínculos CLT por ano'+rng(sVin);
 
-    // Labels
-    document.getElementById('labelMuni').textContent  = muniNome;
-    document.getElementById('labelSetor').textContent = setorNome;
+    const n=lv(sNum),v=lv(sVin),s=lv(sSal),a=lv(sAdm),dm=lv(sDem),h=lv(sHhi),t=lv(sTam);
+    if(n.labels.length)makeLineChart('lineChart1',n.labels,n.valores,'#00c896');
+    if(v.labels.length)makeLineChart('lineChart2',v.labels,v.valores,'#ffd166');
+    if(s.labels.length)makeLineChart('lineChart3',s.labels,s.valores,'#c8d4ee','R$ ');
+    if(a.labels.length)makeLineChart('lineChart4',a.labels,a.valores,'#00c896');
+    if(dm.labels.length)makeLineChart('lineChart5',dm.labels,dm.valores,'#ff6b6b');
+    if(h.labels.length)makeLineChart('lineChart6',h.labels,h.valores,'#ff6b6b');
+    if(t.labels.length)makeLineChart('lineChart7',t.labels,t.valores,'#7eb8ff');
 
-    // Subtítulos com range de anos
-    function anoRange(serie) {
-      if (!serie || serie.length === 0) return '';
-      return ` · ${serie[0].ano}–${serie[serie.length-1].ano}`;
-    }
-    document.getElementById('sub-numero').textContent = `Número de CNPJs ativos${anoRange(serieNumero)}`;
-    document.getElementById('sub-vinc').textContent   = `Vínculos CLT registrados${anoRange(serieVinc)}`;
-
-    // Gráficos
-    const n = serieParaLabelsValores(serieNumero);
-    const v = serieParaLabelsValores(serieVinc);
-    const s = serieParaLabelsValores(serieSalario);
-    const h = serieParaLabelsValores(serieHhi);
-
-    if (n.labels.length) makeLineChart('lineChart1', n.labels, n.valores, '#00c896');
-    if (v.labels.length) makeLineChart('lineChart2', v.labels, v.valores, '#ffd166');
-    if (s.labels.length) makeLineChart('lineChart3', s.labels, s.valores, '#c8d4ee', 'R$ ');
-    if (h.labels.length) makeLineChart('lineChart4', h.labels, h.valores, '#ff6b6b');
-
-    // Mostra resultado
-    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('loadingState').style.display='none';
     document.getElementById('dashboard').classList.remove('hidden');
-
-    setTimeout(() => {
+    setTimeout(()=>{
       document.getElementById('resultLabel').classList.add('visible');
-      document.getElementById('kpiGrid').classList.add('visible');
-      document.getElementById('row2').classList.add('visible');
-      document.getElementById('row3').classList.add('visible');
-    }, 50);
+      document.getElementById('sec1').classList.add('visible');
+      document.getElementById('sec2').classList.add('visible');
+      document.getElementById('sec3').classList.add('visible');
+    },50);
 
-  } catch (err) {
-    document.getElementById('loadingState').style.display = 'none';
-    document.getElementById('erroState').style.display = 'block';
-    document.getElementById('erroMsg').textContent = err.message;
+  } catch(err) {
+    document.getElementById('loadingState').style.display='none';
+    document.getElementById('erroState').style.display='block';
+    document.getElementById('erroMsg').textContent=err.message;
     console.error(err);
   } finally {
-    document.getElementById('btnBuscar').disabled = false;
+    document.getElementById('btnBuscar').disabled=false;
   }
 }
 </script>
