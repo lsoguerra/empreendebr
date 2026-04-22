@@ -95,11 +95,11 @@
 
   .filters-card { background:var(--azul-medio); border:1px solid var(--card-border); border-radius:20px; padding:28px 32px; margin-bottom:36px; }
   .filters-title { font-family:'Syne',sans-serif; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:2px; color:var(--verde); margin-bottom:20px; }
-  .filters-grid { display:grid; grid-template-columns:1fr 1fr auto; gap:16px; align-items:end; }
+  .filters-grid { display:grid; grid-template-columns:140px 1fr 1fr auto; gap:16px; align-items:end; }
   .field-group { display:flex; flex-direction:column; gap:8px; }
   .field-group label { font-size:11px; font-weight:500; color:var(--cinza); text-transform:uppercase; letter-spacing:1px; }
   select { background:var(--azul-claro); border:1px solid var(--card-border); border-radius:10px; color:var(--branco); font-family:'DM Sans',sans-serif; font-size:15px; padding:13px 40px 13px 16px; outline:none; cursor:pointer; transition:border-color 0.2s; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238899bb' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; }
-  select:hover,select:focus { border-color:var(--verde); }
+  select:disabled { opacity: 0.4; cursor: not-allowed; }
   select option { background:var(--azul-medio); }
   .btn-buscar { background:var(--verde); color:var(--azul); border:none; border-radius:10px; font-family:'Syne',sans-serif; font-weight:700; font-size:15px; padding:13px 32px; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
   .btn-buscar:hover { background:var(--verde-escuro); transform:translateY(-1px); box-shadow:0 8px 24px rgba(0,200,150,0.3); }
@@ -195,7 +195,8 @@
   footer a { color:var(--verde); text-decoration:none; }
 
   @media(max-width:768px){
-    .filters-grid{grid-template-columns:1fr;}
+    .filters-grid{grid-template-columns:1fr 1fr;}
+    .filters-grid .btn-buscar{grid-column:1/-1;}
     .kpi-grid{grid-template-columns:1fr 1fr;}
     .section-row-2{grid-template-columns:1fr;}
     .missao-cards{grid-template-columns:1fr;}
@@ -276,29 +277,42 @@
       <div class="filters-title">⬡ Selecione sua análise</div>
       <div class="filters-grid">
         <div class="field-group">
+          <label>Estado (UF)</label>
+          <select id="uf" onchange="filtrarMunicipios()">
+            <option value="">UF...</option>
+            <option value="AC">AC</option>
+            <option value="AL">AL</option>
+            <option value="AM">AM</option>
+            <option value="AP">AP</option>
+            <option value="BA">BA</option>
+            <option value="CE">CE</option>
+            <option value="DF">DF</option>
+            <option value="ES">ES</option>
+            <option value="GO">GO</option>
+            <option value="MA">MA</option>
+            <option value="MG">MG</option>
+            <option value="MS">MS</option>
+            <option value="MT">MT</option>
+            <option value="PA">PA</option>
+            <option value="PB">PB</option>
+            <option value="PE">PE</option>
+            <option value="PI">PI</option>
+            <option value="PR">PR</option>
+            <option value="RJ">RJ</option>
+            <option value="RN">RN</option>
+            <option value="RO">RO</option>
+            <option value="RR">RR</option>
+            <option value="RS">RS</option>
+            <option value="SC">SC</option>
+            <option value="SE">SE</option>
+            <option value="SP">SP</option>
+            <option value="TO">TO</option>
+          </select>
+        </div>
+        <div class="field-group">
           <label>Município</label>
-          <select id="municipio">
-            <option value="">Escolha o município...</option>
-            <!-- 
-              INSTRUÇÃO: substitua estas opções pelos municípios reais.
-              O value deve ser o id_municipio (código IBGE) como string.
-              Exemplo: <option value="3543402">Ribeirão Preto — SP</option>
-              
-              Para gerar esta lista automaticamente em R:
-              municipios_lista <- read_csv("csvs/numero.csv") |>
-                distinct(id_municipio) |>
-                left_join(tabela_nomes_municipios) |>
-                arrange(nome)
-              E exportar como HTML options.
-            -->
-            <option value="3550308">São Paulo — SP</option>
-            <option value="3543402">Ribeirão Preto — SP</option>
-            <option value="3509502">Campinas — SP</option>
-            <option value="3106200">Belo Horizonte — MG</option>
-            <option value="4106902">Curitiba — PR</option>
-            <option value="2304400">Fortaleza — CE</option>
-            <option value="2611606">Recife — PE</option>
-            <option value="1302603">Manaus — AM</option>
+          <select id="municipio" disabled>
+            <option value="">Selecione a UF primeiro...</option>
           </select>
         </div>
         <div class="field-group">
@@ -358,32 +372,32 @@
       <!-- KPIs -->
       <div class="kpi-grid" id="kpiGrid">
         <div class="kpi-card destaque">
-          <div class="kpi-label">Estabelecimentos ativos em 2024</div>
+          <div class="kpi-label">Estabelecimentos ativos</div>
           <div class="kpi-value verde" id="kpi-numero">—</div>
           <div class="kpi-delta" id="kpi-numero-delta"></div>
           <button class="tip-btn" onclick="toggleTip(this)">?</button>
           <div class="tooltip-popup">Número total de CNPJs ativos no setor e município selecionados, conforme Receita Federal. Inclui todos os portes — de MEI a grande empresa.</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">Trabalhadores formais em 2024</div>
+          <div class="kpi-label">Trabalhadores formais</div>
           <div class="kpi-value" id="kpi-vinc">—</div>
           <div class="kpi-delta" id="kpi-vinc-delta"></div>
           <button class="tip-btn" onclick="toggleTip(this)">?</button>
           <div class="tooltip-popup">Total de vínculos empregatícios formais (CLT) registrados na RAIS para este setor e município. Não inclui autônomos ou informais.</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">Salário médio em 2024</div>
+          <div class="kpi-label">Salário médio</div>
           <div class="kpi-value amarelo" id="kpi-salario">—</div>
           <div class="kpi-delta" id="kpi-salario-delta"></div>
           <button class="tip-btn" onclick="toggleTip(this)">?</button>
           <div class="tooltip-popup">Média salarial dos vínculos formais no setor (RAIS). Serve como referência para entender o padrão de remuneração e a atratividade do mercado de trabalho local.</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">Concentração de mercado em 2024</div>
+          <div class="kpi-label">Concentração (HHI)</div>
           <div class="kpi-value" id="kpi-hhi">—</div>
           <div class="kpi-delta" id="kpi-hhi-delta"></div>
           <button class="tip-btn" onclick="toggleTip(this)">?</button>
-          <div class="tooltip-popup">Índice Herfindahl-Hirschman (HHI): mede a concentração do mercado. Valores próximos de 0 indicam mercado fragmentado (muita concorrência); próximos de 1 indicam que uma empresa domina o mercado.</div>
+          <div class="tooltip-popup">Índice Herfindahl-Hirschman (HHI): mede a concentração do mercado. Valores próximos de 0 indicam mercado fragmentado (muita concorrência); próximos de 1 indicam monopólio ou oligopólio.</div>
         </div>
       </div>
 
@@ -447,7 +461,7 @@
 
     <footer>
       <p>Fonte: RAIS/MTE · Receita Federal · <a href="#" onclick="showPage('missao')">Sobre o projeto</a></p>
-      <p>Última atualização: <strong>RAIS 2024</strong></p>
+      <p>Última atualização: <strong>RAIS 2023</strong></p>
     </footer>
   </div><!-- /page-dash -->
 
@@ -455,6 +469,61 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
+// ── MUNICÍPIOS ────────────────────────────────────────────────
+// Gerado pelo script R (options_municipios.txt) e colado aqui como array JS
+// Formato: [codigo_ibge, "Nome do Município", "UF"]
+// INSTRUÇÃO: substitua este array pelo gerado pelo script R:
+//   municipios |> mutate(js = paste0('["', id_municipio, '","', name_muni, '","', abbrev_state, '"]')) |> pull(js) |> paste(collapse=",\n") |> writeLines("municipios_js.txt")
+
+const MUNICIPIOS = [
+  // Exemplos — substitua pela lista completa gerada pelo R
+  ["1302603","Manaus","AM"],
+  ["1501402","Belém","PA"],
+  ["2304400","Fortaleza","CE"],
+  ["2507507","João Pessoa","PB"],
+  ["2611606","Recife","PE"],
+  ["2927408","Salvador","BA"],
+  ["3106200","Belo Horizonte","MG"],
+  ["3509502","Campinas","SP"],
+  ["3543402","Ribeirão Preto","SP"],
+  ["3550308","São Paulo","SP"],
+  ["4106902","Curitiba","PR"],
+  ["4314902","Porto Alegre","RS"],
+  ["5300108","Brasília","DF"],
+  ["5208707","Goiânia","GO"],
+];
+
+function filtrarMunicipios() {
+  const uf = document.getElementById('uf').value;
+  const sel = document.getElementById('municipio');
+
+  sel.innerHTML = '';
+
+  if (!uf) {
+    sel.innerHTML = '<option value="">Selecione a UF primeiro...</option>';
+    sel.disabled = true;
+    return;
+  }
+
+  const filtrados = MUNICIPIOS.filter(m => m[2] === uf)
+                               .sort((a, b) => a[1].localeCompare(b[1], 'pt-BR'));
+
+  if (filtrados.length === 0) {
+    sel.innerHTML = '<option value="">Nenhum município disponível</option>';
+    sel.disabled = true;
+    return;
+  }
+
+  sel.innerHTML = '<option value="">Escolha o município...</option>';
+  filtrados.forEach(([cod, nome]) => {
+    const opt = document.createElement('option');
+    opt.value = cod;
+    opt.textContent = nome;
+    sel.appendChild(opt);
+  });
+  sel.disabled = false;
+}
+
 // ── CONFIGURAÇÃO ─────────────────────────────────────────────
 const DATA_PATH = 'data/';
 
