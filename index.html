@@ -572,7 +572,7 @@ function enviarContato() {
   const email = document.getElementById('contato-email').value.trim();
   const assunto = encodeURIComponent('EmpreendeBR — ' + (nome||'Mensagem'));
   const corpo   = encodeURIComponent((nome?'Nome: '+nome+'\n':'')+(email?'Email: '+email+'\n\n':'\n')+msg);
-  window.location.href = `mailto:SEU_EMAIL_AQUI?subject=${assunto}&body=${corpo}`;
+  window.location.href = `mailto:empreendebr.painel@gmail.com?subject=${assunto}&body=${corpo}`;
 }
 
 // ── TOOLTIP ──────────────────────────────────────────────────
