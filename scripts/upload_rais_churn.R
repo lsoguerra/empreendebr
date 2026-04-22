@@ -2,7 +2,7 @@
 ###############################
 ## Upload: RAIS churn
 ################################
-
+setwd("~/Documents/GitHub/empreender/data")
 data <- read_sql("
   SELECT
     ano,
@@ -52,4 +52,4 @@ write.csv(df3, file="admissoes.csv", row.names = FALSE)
 
 df4 <- df[, .(demissoes = sum(demissoes)),
           by = .(ano, id_municipio, cnae1)]
-write.csv(df3, file="demissoes.csv", row.names = FALSE)
+write.csv(df4, file="demissoes.csv", row.names = FALSE)
