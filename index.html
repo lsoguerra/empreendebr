@@ -702,7 +702,7 @@ async function buscar(){
     document.getElementById('kpi-vinc').textContent    = uVin !=null?fmt(uVin):'—';
     document.getElementById('kpi-salario').textContent = uSal !=null?fmtR(uSal):'—';
     document.getElementById('kpi-hhi').textContent     = uHhi !=null?uHhi.toFixed(3):'—';
-    document.getElementById('kpi-tamanho').textContent = uTam !=null?fmt(uTam,1)+' func.':'—';
+    document.getElementById('kpi-tamanho').textContent = uTam !=null?fmt(uTam,1)+' funcionários':'—';
     document.getElementById('kpi-saldo').textContent   = uSal2!=null?(uSal2>0?'+':'')+fmt(uSal2):'—';
 
     renderDelta(document.getElementById('kpi-numero-delta'),  calcDelta((sNum ||[]).map(p=>p.valor)));
